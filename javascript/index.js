@@ -107,7 +107,37 @@ async function makeBroccoli() {
 }
 makeBroccoli()
 
+// other way to do it with a for loop
+
+
+// const makeBroccoli = async () => {
+//   try {
+//     for (let i = 0; 0 < makeBroccoli.length; i++) {
+//       let step = await obtainInstruction('broccoli', i);
+//       document.querySelector('#broccoli').innerHTML += `<li>${step}</li>`
+//     }
+//     document.querySelector('#broccoli').innerHTML += `<li>Broccoli is ready!</li>`
+//   } catch (error) {
+//     console.log(error)
+//   }
+// }
+
+
+
 // Bonus 2 - Promise all
 // ...
 
-`<li> Brussels sprouts are ready!</li.`
+
+const brusselsSproutsSteps = brusselsSprouts.map((value, index) => {
+  return obtainInstruction('brusselsSprouts', index);
+});
+
+Promise.all(brusselsSproutsSteps)
+  .then((steps) => {
+    steps.forEach((step) => {
+    document.querySelector('#brusselsSprouts').innerHTML += `<li>${step}</li>`;
+    });
+    document.querySelector('#brusselsSprouts').innerHTML += `<li>Brussels sprouts are ready!</li>`;
+    document.querySelector('#brusselsSproutsImg').removeAttribute('hidden');
+  })
+  .catch((error) => console.log(error));
